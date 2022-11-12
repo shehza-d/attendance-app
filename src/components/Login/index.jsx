@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../../firebase';
 
 const Login = (props) => { 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  const auth = getAuth();
+//   const auth = getAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const Login = (props) => {
         setPassword("");
         setEmail("");
         setErrorMsg("");
-        //   props.setIsLogin("hello")
+        //   props.setIsLogin(true)
         // navigate("/home");
       })
       .catch((error) => {
