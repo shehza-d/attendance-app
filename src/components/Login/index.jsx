@@ -1,33 +1,47 @@
 import React, { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase';
+import { auth } from "../../firebase";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-const Login = (props) => { 
+const Login = (props) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-//   const auth = getAuth();
+  //   const auth = getAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-
-        setSuccessMsg(
-          "Login in Successfull."
-        );
+        setSuccessMsg("Login in Successfull.");
         setPassword("");
         setEmail("");
         setErrorMsg("");
-        //   props.setIsLogin(true)
+        // props.setIsLogin(true);
         // navigate("/home");
       })
       .catch((error) => {
         setErrorMsg(error.message);
       });
   };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      setIsLogin(true);
+      console.log("Login Hai", user);
+      // ...
+    } else {
+      // ...
+      console.log("Login nahi Hai");
+      setIsLogin(false);
+    }
+  });
 
   return (
     <div className="loginContainer">

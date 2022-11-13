@@ -12,7 +12,7 @@ import AddCourse from "./components/addCourse/index";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-
+console.log(isLogin);
   return (
     <div className="App">
       {isLogin ? (
