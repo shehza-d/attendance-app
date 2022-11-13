@@ -1,18 +1,43 @@
-import './App.css';
+import "./App.css";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import Login from "./components/Login/index";
+import Login from "./components/Login";
 import Home from "./components/home/index";
 import AddCourse from "./components/addCourse/index";
-// import Login from "./components/Login/index";
-// import Login from "./components/Login/index";
-// import Login from "./components/Login/index";
+import Attendance from "./components/attendance/index";
+import AddStudents from "./components/addStudent/index";
+import ShowAllClasses from "./components/showAllClasses/index.jsx";
 // import { auth } from "./firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-function App() {
+export default function App(props) {
+  // const App=()=> {
+  // function App() {
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser(currentUser);
+  // });
+
   const [isLogin, setIsLogin] = useState(false);
-console.log(isLogin);
+  console.log(isLogin);
+  // useEffect(() => {
+  const auth = getAuth();
+  // const Unsubscribe =
+  onAuthStateChanged(auth, (user) => {
+    console.log(user);
+    if (user) {
+      const uid = user.uid;
+      setIsLogin(true);
+      console.log("Login Hai");
+    } else {
+      console.log("Login nahi Hai");
+      setIsLogin(false);
+    }
+  });
+  // return () => Unsubscribe();
+  // }, []);
+  console.log(isLogin);
+
   return (
     <div className="App">
       {isLogin ? (
@@ -21,22 +46,25 @@ console.log(isLogin);
             path="/"
             element={
               <>
-             <Home/>
+                <Home />
               </>
             }
           />
 
-          {/* <Route path="attendance" element={<Attendance />} />
+          <Route path="attendance" element={<Attendance />} />
           <Route path="addCourse" element={<AddCourse />} />
           <Route path="addStudents" element={<AddStudents />} />
           <Route path="showAllClasses" element={<ShowAllClasses />} />
-          <Route path="profile" element={<Profile />} /> */}
+          {/* <Route path="profile" element={<Profile />} /> */}
 
           <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/login" element={<Login isLogin={isLogin} setIsLogin={setIsLogin}/>} />
+          <Route
+            path="/login"
+            element={<Login isLogin={isLogin} setIsLogin={setIsLogin} />}
+          />
           {/* <Route path="signup" element={<Signup />} /> */}
           <Route path="*" element={<Navigate to="/login" replace={true} />} />
         </Routes>
@@ -45,7 +73,7 @@ console.log(isLogin);
   );
 }
 
-export default App;
+// export default App;
 
 // "dependencies": {
 //   "@testing-library/jest-dom": "^5.16.5",
