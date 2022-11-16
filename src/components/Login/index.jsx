@@ -23,25 +23,10 @@ export default function Login(props) {
         setPassword("");
         setEmail("");
         setErrorMsg("");
-        // props.setIsLogin(true);
-        navigate("/home");
+        navigate("/ygy");
       })
       .catch((error) => setErrorMsg(error.message, error.code));
   };
-
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     const uid = user.uid;
-  //     setIsLogin(true);
-  //     console.log("Login Hai", user);
-  //     // ...
-  //   } else {
-  //     // ...
-  //     console.log("Login nahi Hai");
-  //     setIsLogin(false);
-  //   }
-  // });
-
   return (
     <div className="loginContainer">
       <form className="loginForm">
