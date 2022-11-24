@@ -1,0 +1,37 @@
+.loginContainer{
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.loginForm{
+	margin-top: 50px;
+	padding: 3%;
+	width: 60%;
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid red;
+}
+.loginForm>input{
+	margin: 3px;
+	padding: 5%;
+	border-radius: 50px;
+}
+.loginForm>button{
+	width: inherit;
+	height: inherit;
+	border-radius: 50px;
+}
+.errorMsg{
+	color: rgb(255, 255, 255);
+	background-color: rgba(255, 0, 0, 0.527);
+	padding: 4px;
+	border-radius: 5px;
+}
+.successMsg{
+	color: green;
+}

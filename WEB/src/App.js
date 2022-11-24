@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 
 import Login from "./components/Login";
 import Home from "./components/home/index";
-import AddCourse from "./components/addCourse/index";
+import Courses from "./components/courses/index";
 import Attendance from "./components/attendance/index";
-import AddStudents from "./components/addStudent/index";
-import ShowAllClasses from "./components/showAllClasses/index.jsx";
+import Students from "./components/student/index";
 // import { auth } from "./firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -42,9 +41,9 @@ export default function App(props) {
           <Route path="/" element={<Home />} />
 
           <Route path="attendance" element={<Attendance />} />
-          <Route path="addCourse" element={<AddCourse />} />
-          <Route path="addStudents" element={<AddStudents />} />
-          <Route path="showAllClasses" element={<ShowAllClasses />} />
+          <Route path="courses" element={<Courses />} />
+          <Route path="students" element={<Students />} />
+          {/* <Route path="showAllCourses" element={<ShowAllCourses />} /> */}
           {/* <Route path="profile" element={<Profile />} /> */}
 
           <Route path="*" element={<Navigate to="/" replace={true} />} />

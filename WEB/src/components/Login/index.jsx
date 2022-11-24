@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './index.css'
 import { auth } from "../../firebase";
 import {
   getAuth,
@@ -29,33 +30,23 @@ export default function Login(props) {
   };
   return (
     <div className="loginContainer">
+      <h1>Attendance Management System</h1>
       <form className="loginForm">
-        <p>Login</p>
-        {successMsg && (
-          <>
-            <div className="success-msg">{successMsg}</div>
-          </>
-        )}
-        {errorMsg && (
-          <>
-            <div className="error-msg">{errorMsg}</div>
-          </>
-        )}
-
+        <h2>Login Here!</h2>
+        {successMsg && <div className="successMsg">{successMsg}</div>}
+        {errorMsg && <div className="errorMsg">{errorMsg}</div>}
         <label>Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Enter your email"
         />
-
         <label>Password</label>
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Enter Your Password"
         />
-
         <button onClick={handleLogin}>Login</button>
       </form>
     </div>
