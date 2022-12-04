@@ -29,7 +29,7 @@ app.get("/", (req: express.Request, res: express.Response): void => {
 //to see all courses list from database
 app.get("/course", (req, res) => {
   //remove any type
-  courseModel.find({}, (err:Error, data:any) => {
+  courseModel.find({}, (err: Error, data: any) => {
     if (!err) {
       res.send({
         message: "here is you todo list",
@@ -44,47 +44,47 @@ app.get("/course", (req, res) => {
 });
 
 //to add new courses in Database
-// app.post("/course", (request, response) => {
-//   courseModel.create({ text: request.body.text }, (err, saved) => {
-//     if (!err) {
-//       console.log("saved");
-//       response.send({
-//         message: "your data is saved",
-//       });
-//     } else {
-//       response.status(500).send({
-//         message: "error hy koi server ma",
-//       });
-//     }
-//   });
-// });
+app.post("/course", (request, response) => {
+  courseModel.create({ text: request.body.text }, (err, saved) => {
+    if (!err) {
+      console.log("saved");
+      response.send({
+        message: "your data is saved",
+      });
+    } else {
+      response.status(500).send({
+        message: "error hy koi server ma",
+      });
+    }
+  });
+});
 
 // to edit any course in Database
-// app.put("/course/:id", async (req, res) => {
-//   try {
-//     const updatedData = await courseModel
-//       .findByIdAndUpdate(req.params.id, { text: req.body.text })
-//       .exec();
-//     console.log(updatedData);
-//     res.send({
-//       message: "course has been updated successfully",
-//       data: updatedData,
-//     });
-//   } catch (err) {
-// res.status(500).send({ message: "server errror" });
-//   }
-// });
+app.put("/course/:id", async (req, res) => {
+  try {
+    const updatedData = await courseModel
+      .findByIdAndUpdate(req.params.id, { text: req.body.text })
+      .exec();
+    console.log(updatedData);
+    res.send({
+      message: "course has been updated successfully",
+      data: updatedData,
+    });
+  } catch (err) {
+    res.status(500).send({ message: "server errror" });
+  }
+});
 
 // delete all courses in Database
-// app.delete("/courses", (req, res) => {
-//   courseModel.deleteMany({}, (err) => {
-//     if (!err) {
-//       res.send({ message: "all course deleted successfully" });
-//     } else {
-//       res.status(500).send({ message: "server error" });
-//     }
-//   });
-// });
+app.delete("/courses", (req, res) => {
+  courseModel.deleteMany({}, (err) => {
+    if (!err) {
+      res.send({ message: "all course deleted successfully" });
+    } else {
+      res.status(500).send({ message: "server error" });
+    }
+  });
+});
 
 // //to delete selected courses
 // //:id is URL parameter
