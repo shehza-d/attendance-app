@@ -11,11 +11,7 @@ import Students from "./components/student/index";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function App(props) {
-  // const App=()=> {
-  // function App() {
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUser(currentUser);
-  // });
+
   const [isLogin, setIsLogin] = useState(false);
 
   const auth = getAuth();
@@ -43,7 +39,6 @@ export default function App(props) {
           <Route path="attendance" element={<Attendance />} />
           <Route path="courses" element={<Courses />} />
           <Route path="students" element={<Students />} />
-          {/* <Route path="showAllCourses" element={<ShowAllCourses />} /> */}
           {/* <Route path="profile" element={<Profile />} /> */}
 
           <Route path="*" element={<Navigate to="/" replace={true} />} />
@@ -61,5 +56,3 @@ export default function App(props) {
     </div>
   );
 }
-
-// export default App;
