@@ -9,6 +9,8 @@ import {
   getAuth,
 } from "firebase/auth";
 // import { auth } from "./firebase-config";
+import Button from '@mui/material/Button';
+
 
 export default function Home(props) {
   const auth = getAuth();
@@ -19,9 +21,12 @@ export default function Home(props) {
       <button onClick={async () => await signOut(auth)}>LogOut</button>
     </nav>
       <div className="btnDiv">
-        <Link to="/attendance">Attendance</Link>
-        <Link to="/courses">Courses</Link>
-        <Link to="/students">Students</Link>
+      <Button variant="contained"><Link to="/attendance">Attendance</Link></Button>
+      <br />
+      <Button variant="contained"><Link to="/courses">Courses</Link></Button>
+     <br />
+      <Button variant="contained"><Link to="/students">Students</Link></Button>
+        
         {/* <Link to="/showAllCourses">showAllCourses</Link> */}
       </div>
       {/* <Link to="/login">LogIn</Link>

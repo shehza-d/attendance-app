@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import path from "path";
 const app = express();
 const port = process.env.PORT || 3002;
 //middleware configuration
@@ -8,10 +9,10 @@ app.use(express.json());
 app.use(cors());
 const courseModel = mongoose.model("courseSchema", new mongoose.Schema({
     courseName: { type: String, require: true },
-    classDays: { type: String, require: true },
-    teacherName: { type: String, require: true },
-    sectionName: { type: String, require: true },
-    batchNumber: { type: Number, require: true },
+    // classDays: { type: String, require: true },
+    // teacherName: { type: String, require: true },
+    // sectionName: { type: String, require: true },
+    // batchNumber: { type: Number, require: true },
     classID: String,
     createdDate: { type: Date, default: Date.now },
 }));
@@ -25,9 +26,12 @@ const studentModel = mongoose.model("studentModel", new mongoose.Schema({
     classID: String,
     createdDate: { type: Date, default: Date.now },
 }));
-app.get("/", (req, res) => {
-    res.send(`Server for Shehzad Attendance App!`);
-});
+// app.get("/", (req: express.Request, res: express.Response): void => {
+//   res.send(`Server for Shehzad Attendance App!`);
+// });
+const __dirname = path.resolve();
+app.use("/", express.static(path.join(__dirname, "./WEB/build")));
+app.use("*", express.static(path.join(__dirname, "./WEB/build")));
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ this is for courses $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 //to see all courses list from database
 app.get("/course", (req, res) => {
@@ -47,8 +51,9 @@ app.get("/course", (req, res) => {
     });
 });
 //to add new courses in Database
-app.post("/course", (req, res) => {
-    courseModel.create({ course: req.body.text }, (err, saved) => {
+app.post("/course", async (req, res) => {
+    console.log(req.body);
+    await courseModel.create({ course: req.body.text }, (err, saved) => {
         if (!err) {
             console.log("saved");
             res.send({
