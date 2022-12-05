@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import "./index.css";
@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -28,18 +29,17 @@ const Students = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //formik
   const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
     useFormik({
       initialValues: {
-        classDays: "",
-        teacherName: "",
-        email: "",
-        name: "",
-        password: "",
-        repeat_password: "",
-        userPhoneNumber: "",
-
-        batchNumber: "",
+        studentName: "",
+        fatherName: "",
+        rollNo: "",
+        contactNumber: "",
+        NIC_Number: "",
+        picture: "",
+        courseName: "",
       },
 
       validationSchema: yup.object({
@@ -48,41 +48,65 @@ const Students = () => {
           .required("batch Number is required")
           .min(1, "Batch can't be less then 1")
           .max(200, "User can't be older then 200")
-          .positive("Age can't be negative")
-          .integer("Enter age without decimal"),
-        classDays: yup
+          .positive("Batch Number can't be negative")
+          .integer("Enter Batch Number without decimal"),
+        rollNo: yup
+          .number("Enter Roll Number in number")
+          .required("Roll Number is required")
+          .min(1, "Roll Number can't be less then 1")
+          .max(10000000, "Roll Number can't be older then 10,000,000")
+          .positive("Roll Number can't be negative")
+          .integer("Enter Roll Number without decimal"),
+        NIC_Number: yup
+          .number("Enter NIC Number in number")
+          .required("NIC Number is required")
+          .min(1, "NIC can't be less then 1")
+          .max(23, "NIC number can't be older then 22")
+          .positive("NIC number can't be negative")
+          .integer("Enter NIC number without decimal"),
+        studentName: yup
           .string("Enter your classDays")
           .required("classDays is required")
           .min(3, "Please enter more then 3 characters ")
-          .max(12, "Please enter within 12 characters "),
-        teacherName: yup
+          .max(20, "Please enter within 20 characters "),
+        fatherName: yup
           .string("Enter your Teacher Name")
           // .email("Enter your email")
           .required("Teacher Name is required")
           .min(3, "Please enter more then 3 characters ")
-          .max(35, "Please enter within 35 characters"),
-        sectionName: yup
-          .string("Enter your Section Name")
-          .required("Section nName is required")
-          .min(1, "Please enter more then 1 characters ")
-          .max(25, "Please enter within 25 characters "),
+          .max(20, "Please enter within 20 characters "),
+        // picture: yup
+        //   .string("Enter your Section Name")
+        //   .required("Section nName is required")
+        //   .min(1, "Please enter more then 1 characters ")
+        //   .max(25, "Please enter within 25 characters "),
         courseName: yup
           .string("Enter your Course Name")
           .required("Course Name is required")
           .min(1, "Please enter more then 1 characters ")
           .max(25, "Please enter within 25 characters "),
 
-        userPhoneNumber: yup
-          .string("Enter your Phone Number")
+        contactNumber: yup
+          .number("Enter your Phone Number")
           .required("Phone Number is required")
-          .min(10, "Please enter more then 10 characters ")
-          .max(15, "Please enter within 15 characters "),
+          .min(1, "Please enter more then 9 characters ")
+          .max(15, "Please enter within 15 characters ")
+          .positive("Phone Number can't be negative")
+          .integer("Enter Phone Number without decimal"),
 
         createdOn: yup.date().default(() => new Date()),
       }),
 
-      onSubmit: (values) => {
+      onSubmit: async (values) => {
         console.log(values);
+        try {
+          await axios.post(" https://hackathon-1-production.up.railway.app/student", {
+            // student: values.courseName,
+            values
+          });
+        } catch (err) {
+          console.log(err);
+        }
         //do something like there you can call API or send data to firebase
         //   if (errors) console.log("error is", errors);
       },

@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 const style = {
   position: "absolute",
   top: "50%",
@@ -69,8 +70,13 @@ const Courses = () => {
         createdOn: yup.date().default(() => new Date()),
       }),
 
-      onSubmit: (values) => {
-        console.log(values);
+      onSubmit: async (values) => {
+        console.log(values.courseName);
+        try {
+          await axios.post(" http://localhost:3002/course",{course: values.courseName});
+        } catch (err) {
+          console.log(err);
+        }
         //do something like there you can call API or send data to firebase
         //   if (errors) console.log("error is", errors);
       },

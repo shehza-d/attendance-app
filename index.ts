@@ -4,15 +4,27 @@ import mongoose from "mongoose";
 
 const app = express();
 const port = process.env.PORT || 3002;
+//middleware configuration
+app.use(express.json());
+app.use(cors());
 
 const courseModel = mongoose.model(
   "courseSchema",
   new mongoose.Schema({
-    text: { type: String, require: true },
+    courseName: { type: String, require: true },
+    classDays: { type: String, require: true },
+    teacherName: { type: String, require: true },
+    sectionName: { type: String, require: true },
+    batchNumber: { type: Number, require: true },
     classID: String,
     createdDate: { type: Date, default: Date.now },
   })
 );
+// classDays: "",
+// teacherName: "",
+// sectionName: "",
+// courseName: "",
+// batchNumber: "",
 const studentModel = mongoose.model(
   "studentModel",
   new mongoose.Schema({
@@ -32,7 +44,7 @@ app.get("/course", (req, res) => {
   courseModel.find({}, (err: Error, data: any) => {
     if (!err) {
       res.send({
-        message: "here is you todo list",
+        message: "here is you courses list",
         data: data,
       });
     } else {
@@ -44,15 +56,15 @@ app.get("/course", (req, res) => {
 });
 
 //to add new courses in Database
-app.post("/course", (request, response) => {
-  courseModel.create({ text: request.body.text }, (err, saved) => {
+app.post("/course", (req, res) => {
+  courseModel.create({ course: req.body.text }, (err, saved) => {
     if (!err) {
       console.log("saved");
-      response.send({
+      res.send({
         message: "your data is saved",
       });
     } else {
-      response.status(500).send({
+      res.status(500).send({
         message: "error hy koi server ma",
       });
     }
@@ -109,20 +121,20 @@ app.delete("/courses", (req, res) => {
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ this is for Students $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 //to see all student list from database
-// app.get("/student", (req, res) => {
-//   courseModel.find({}, (err, data) => {
-//     if (!err) {
-//       res.send({
-//         message: "here is you todo list",
-//         data: data,
-//       });
-//     } else {
-//       res.status(500).send({
-//         message: "server error",
-//       });
-//     }
-//   });
-// });
+app.get("/student", (req, res) => {
+  studentModel.find({}, (err: Error, data: any) => {
+    if (!err) {
+      res.send({
+        message: "here is you todo list",
+        data: data,
+      });
+    } else {
+      res.status(500).send({
+        message: "server error",
+      });
+    }
+  });
+});
 
 //to add new student in Database
 // app.post("/student", (request, response) => {
@@ -194,7 +206,7 @@ app.listen(port, (): void => {
 //MongoDB
 const dbURI =
   "mongodb+srv://shehza-d:web123@cluster0.egqvqca.mongodb.net/firstdatabase?retryWrites=true&w=majority";
-mongoose.connect(dbURI);
+await mongoose.connect(dbURI);
 
 //for status of DB
 ////////////////mongodb connected disconnected events///////////
