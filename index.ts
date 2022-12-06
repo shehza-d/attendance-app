@@ -212,7 +212,7 @@ app.listen(port, (): void => {
 
 //MongoDB
 const dbURI =
-  "mongodb+srv://shehza-d:web123@cluster0.egqvqca.mongodb.net/firstdatabase?retryWrites=true&w=majority";
+  "mongodb+srv://shehza-d:web123@cluster0.egqvqca.mongodb.net/attendanceDatabase?retryWrites=true&w=majority";
 await mongoose.connect(dbURI);
 
 //for status of DB
