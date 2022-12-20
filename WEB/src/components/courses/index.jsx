@@ -84,13 +84,9 @@ const Courses = () => {
         } catch (err) {
           console.log(err);
         }
-        //do something like there you can call API or send data to firebase
-        //   if (errors) console.log("error is", errors);
-      },
+       },
     });
-  // console.log(Formik)
-  // if (fmrk.errors) console.log("error is", fmrk.errors);
-
+ 
   return (
     <>
       <Button variant="contained" onClick={handleOpen}>
